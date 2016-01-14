@@ -1,0 +1,126 @@
+doctype html
+html(ng-app='calculatorApp', ng-strict-di, ng-controller='CalculatorCtrl')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title(ng-bind='pageTitle')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic')
+    link(rel='stylesheet', href='assets/angular-material.min.css')
+    link(rel='stylesheet', href='assets/angular-chart.min.css')
+    // inject:css
+    // endinject
+    // inject:js
+    // endinject
+  body(ng-cloak)
+    div(data-iframe-height)
+      section(layout="column" layout-gt-md="row")
+        md-card(flex)
+          md-card-content.graphic(flex, layout="column")
+            .gains
+              h1.md-subhead Potential Revenue Increase
+              span.gain.gain-currency + €{{visitsChange + convRateChange + orderValueChange | number:0}}
+              = ' '
+              span.gain (+{{(visitsChange + convRateChange + orderValueChange) / (visits * 12 * 50 * 0.05) * 100 | number:0}}%)
+            canvas#bar.chart.chart-bar(chart-data='data', chart-labels='labels', width='300', height='150')
+        md-card(flex)
+          md-card-content(flex, layout="column", layout-align="center")
+            .slider-field(layout="row" layout-align="start end" flex="1")
+              .slider-label(flex) Increase Visits
+              md-slider.md-primary(flex, min='0', max='100', ng-model='visitsImp', aria-label='Visits improvement (%)')
+              .slider-value {{visitsImp}}%
+            .slider-field(layout="row" layout-align="start end" flex="1")
+              .slider-label(flex) Increase Prospect to Lead Conversion Rate
+              md-slider.md-primary(flex, min='0', max='100', ng-model='convRateImp', aria-label='Prospect to Lead conversion rate improvement (%)')
+              .slider-value {{convRateImp}}%
+            .slider-field(layout="row" layout-align="start end" flex="1")
+              .slider-label(flex) Increase Offline Conversion Rate of Leads
+              md-slider.md-primary(flex, min='0', max='100', ng-model='convRateOfflineImp', aria-label='Offline Conversion Rate Improvement (%)')
+              .slider-value {{convRateOfflineImp}}%
+            .slider-field(layout="row" layout-align="start end" flex="1")
+              .slider-label(flex) Increase Average Order Value
+              md-slider.md-primary(flex, min='0', max='100', ng-model='orderValueImp', aria-label='Average order value improvement (%)')
+              .slider-value {{orderValueImp}}%
+      section(layout="column" layout-gt-md="row")
+        md-card(flex)
+          h2.md-subhead Average Number of Visits per Month
+          md-card-content
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Current State Value:
+              md-input-container(flex)
+                input(type='number', ng-model='visits', aria-label='Current State Value')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') % Improvement:
+              md-input-container(flex)
+                input(type='number', ng-model='visitsImp', aria-label='% Improvement')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Goal State Value:
+              .value(flex) {{visits * (1 + visitsImp / 100) | number:0}}
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Revenue Impact:
+              .value(flex) €{{visitsChange | number:0}}
+        md-card(flex)
+          h2.md-subhead Prospect to Lead Conversion Rate for Customers
+          md-card-content
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Current State Value (%):
+              md-input-container(flex)
+                input(type='number', ng-model='convRate', aria-label='Current State Value (%)')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') % Improvement:
+              md-input-container(flex)
+                input(type='number', ng-model='convRateImp', aria-label='% Improvement')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Goal State Value:
+              .value(flex) {{convRate * (1 + convRateImp / 100) | number:2}}%
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Revenue Impact:
+              .value(flex) €{{convRateChange | number:0}}
+        md-card(flex)
+          h2.md-subhead Offline Conversion Rate of Leads Sourced From Digital Properties
+          md-card-content
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Current State Value (%):
+              md-input-container(flex)
+                input(type='number', ng-model='convRateOffline', aria-label='Current State Value (%)')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') % Improvement:
+              md-input-container(flex)
+                input(type='number', ng-model='convRateOfflineImp', aria-label='% Improvement')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Goal State Value:
+              .value(flex) {{convRateOffline * (1 + convRateOfflineImp / 100) | number:2}}%
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Revenue Impact:
+              .value(flex) €{{convRateOfflineChange | number:0}}
+      section(layout="column" layout-gt-md="row")
+        md-card(flex)
+          h2.md-subhead Average Order Value for Customers
+          md-card-content
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Current State Value (€):
+              md-input-container(flex)
+                input(type='number', ng-model='orderValue', aria-label='Current State Value (€)')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') % Improvement:
+              md-input-container(flex)
+                input(type='number', ng-model='orderValueImp', aria-label='% Improvement')
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Goal State Value:
+              .value(flex) €{{orderValue * (1 + orderValueImp / 100) | number:0}}
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Revenue Impact:
+              .value(flex) €{{orderValueChange | number:0}}
+        md-card(flex)
+          h2.md-subhead Annual Revenue Attributed to Digital Marketing
+          md-card-content
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Customer Current State:
+              .value(flex) €{{visits * 12 * convRate / 100 * convRateOffline / 100 * orderValue | number:0}}
+            .field(layout='row' layout-align="start end")
+              .label(flex='50') Goal State:
+              .value(flex) €{{visits * 12 * convRate / 100 * convRateOffline / 100 * orderValue + visitsChange + convRateChange + orderValueChange + convRateOfflineChange | number:0}}
+        md-card(flex)
+          h2.md-subhead Incremental Annual Revenue Attributed to Digital Marketing
+          md-card-content
+            .value-large €{{visitsChange + convRateChange + orderValueChange + convRateOfflineChange | number:0}}
+

@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+$alt-background-color: rgb(66,66,66);
+$alt-text-color: #fff;
+
+html, body {
+  background-color: #ddd;
+  font-size: 14px;
+}
+
+/* Safari has default margin */
+md-input-container input {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@-moz-document url-prefix() {
+  .layout-fill {
+    min-height: 0;
+  }
+
+  input[type="number"] {
+    width: auto;
+  }
+
+  md-input-container {
+    min-width: 0;
+  }
+}
+
+.md-input {
+  min-height: 26px;
+}
+
+
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+md-card {
+  overflow: hidden;
+
+  h2 {
+    background-color: $alt-background-color;
+    color: $alt-text-color;
+    margin: 0;
+    padding: 16px;
+  }
+
+  .label, .value {
+    padding-bottom: 33px;
+    padding-top: 9px;
+  }
+
+  .value {
+    font-weight: 500;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .value-large {
+    font-size: 32px;
+    font-weight: 300;
+  }
+}
+
+.graphic {
+  background-color: $alt-background-color;
+  color: $alt-text-color;
+}
+
+.gains {
+  text-align: center;
+
+  h1 {
+    margin-top: 2px;
+    margin-bottom: 18px;
+  }
+
+  .gain {
+    color: #8BC34A;
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  .gain-currency {
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+}
+
+
+.chart-container {
+  padding: 25px 0 15px;
+}
+
+
+.slider-field {
+  margin: 10px 0;
+  height: 70px;
+}
+
+.slider-label, .slider-value {
+  padding: 16px 0;
+  margin: 0 16px;
+}
+
+.slider-value {
+  min-width: 35px;
+  text-align: right;
+}
+
+
+md-slider {
+  margin-right: 15px;
+}
